@@ -1,0 +1,7 @@
+{
+  "name": "SMMC",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

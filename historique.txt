@@ -1,0 +1,183 @@
+import React, { useState } from 'react';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonButton,
+  IonIcon,
+  IonText,
+  IonFooter,
+  IonSelect,
+  IonSelectOption,
+  IonInput,
+  IonLabel,
+  IonItem,
+} from '@ionic/react';
+import { useHistory } from 'react-router-dom';
+import './Historique.css';
+import { arrowBack, grid, person, time, business, search } from 'ionicons/icons';
+
+const historiques = [
+  { id: 1, compartiment: 'C1', agent: 'John Doe', shift: 'Matin', station: 'Station A', quantite: 50 },
+  { id: 2, compartiment: 'C2', agent: 'Jane Smith', shift: 'Soir', station: 'Station B', quantite: 75 },
+  { id: 3, compartiment: 'C3', agent: 'Alice Brown', shift: 'Nuit', station: 'Station C', quantite: 100 },
+  { id: 4, compartiment: 'C4', agent: 'Bob Gray', shift: 'Matin', station: 'Station D', quantite: 40 },
+  { id: 5, compartiment: 'C5', agent: 'Emily White', shift: 'Soir', station: 'Station E', quantite: 60 },
+  { id: 6, compartiment: 'C6', agent: 'Michael Green', shift: 'Nuit', station: 'Station F', quantite: 90 },
+  { id: 7, compartiment: 'C7', agent: 'Sarah Blue', shift: 'Matin', station: 'Station G', quantite: 30 },
+  { id: 8, compartiment: 'C8', agent: 'David Black', shift: 'Soir', station: 'Station H', quantite: 55 },
+  { id: 9, compartiment: 'C9', agent: 'Laura Yellow', shift: 'Nuit', station: 'Station I', quantite: 70 },
+];
+
+const Historique: React.FC = () => {
+  const history = useHistory();
+  
+  // State pour gérer l'affichage du formulaire de recherche
+  const [showSearch, setShowSearch] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Nombre d'éléments par page
+
+  // Calcul des indices pour la pagination
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedHistoriques = historiques.slice(startIndex, endIndex);
+
+  // Gestion des pages
+  const totalPages = Math.ceil(historiques.length / itemsPerPage);
+
+  const handleBackClick = () => {
+    history.push('/');
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const toggleSearch = () => {
+    setShowSearch(!showSearch);
+  };
+
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonButton fill="clear" slot="start" onClick={handleBackClick}>
+            <IonIcon icon={arrowBack} />
+          </IonButton>
+          <IonTitle>Historique - Navire {nom}</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
+      <IonContent>
+        <IonButton onClick={toggleSearch} expand="full" color="primary">
+          <IonIcon icon={search} slot="start" />
+          Rechercher
+        </IonButton>
+
+        {showSearch && (
+          <div className="search-form">
+            <form>
+              <IonItem>
+                <IonLabel>Station</IonLabel>
+                <IonSelect placeholder="Sélectionner une station">
+                  <IonSelectOption value="Station A">Station A</IonSelectOption>
+                  <IonSelectOption value="Station B">Station B</IonSelectOption>
+                  <IonSelectOption value="Station C">Station C</IonSelectOption>
+                </IonSelect>
+              </IonItem>
+
+              <IonItem>
+                <IonLabel>Compartiment</IonLabel>
+                <IonSelect placeholder="Sélectionner un compartiment">
+                  <IonSelectOption value="C1">C1</IonSelectOption>
+                  <IonSelectOption value="C2">C2</IonSelectOption>
+                  <IonSelectOption value="C3">C3</IonSelectOption>
+                </IonSelect>
+              </IonItem>
+
+              <IonItem>
+                <IonLabel>Date Début</IonLabel>
+                <IonInput type="date" />
+              </IonItem>
+
+              <IonItem>
+                <IonLabel>Date Fin</IonLabel>
+                <IonInput type="date" />
+              </IonItem>
+
+              <IonButton type="submit" expand="full" color="primary">
+                Chercher
+              </IonButton>
+            </form>
+          </div>
+        )}
+
+        {paginatedHistoriques.map((historique) => (
+          <IonCard key={historique.id} className="navire-card">
+            <IonCardHeader>
+              <IonCardTitle>Compartiment {historique.compartiment}</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+              <IonText>
+                <p style={{ fontSize: '18px' }}>
+                 <IonIcon icon={person} style={{ marginRight: '8px' }} />
+                  Agent responsable : {historique.agent}
+                </p>
+                <p style={{ fontSize: '18px' }}>
+                  <IonIcon icon={time} style={{ marginRight: '8px' }} />
+                  Shift : {historique.shift}
+                </p>
+                <p style={{ fontSize: '18px' }}>
+                 <IonIcon icon={business} style={{ marginRight: '8px' }} />
+                  Station : {historique.station}
+                </p>
+                <p style={{ fontSize: '18px' }}>
+                    <IonIcon icon={grid} style={{ marginRight: '8px' }} />
+                  Quantité : {historique.quantite}
+                </p>
+              </IonText>
+            </IonCardContent>
+          </IonCard>
+        ))}
+      </IonContent>
+
+      <IonFooter>
+        <IonToolbar>
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
+            <IonButton
+              onClick={goToPreviousPage}
+              disabled={currentPage === 1}
+              color="primary"
+              size="small"
+            >
+              Précédent
+            </IonButton>
+            <IonText style={{ margin: '0 15px', lineHeight: '32px' }}>
+              Page {currentPage} sur {totalPages}
+            </IonText>
+            <IonButton
+              onClick={goToNextPage}
+              disabled={currentPage === totalPages}
+              color="primary"
+              size="small"
+            >
+              Suivant
+            </IonButton>
+          </div>
+        </IonToolbar>
+      </IonFooter>
+    </IonPage>
+  );
+};
+
+export default Historique;

@@ -1,0 +1,47 @@
+.navire-content {
+    padding: 16px 24px;
+    background-color: #2c3e50; /* Couleur de fond sombre */
+  }
+  
+  .navire-card {
+    margin: 16px 24px; /* 16px en haut et en bas, 24px à gauche et à droite */
+    background-color: #34495e;
+    color: #ecf0f1;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  
+  .navire-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .navire-card ion-card-header {
+    padding: 16px;
+  }
+  
+  .navire-card ion-card-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #1abc9c; /* Vert clair pour contraste */
+  }
+  
+  .navire-card ion-card-subtitle {
+    font-size: 1rem;
+    margin-top: 4px;
+    color: #bdc3c7; /* Gris clair */
+  }
+  
+  .navire-card ion-button {
+    margin-top: 12px;
+    border-radius: 20px;
+    background: linear-gradient(45deg, #1abc9c, #16a085); /* Dégradé vert */
+    color: #ffffff;
+  }
+  
+  .navire-card ion-button:hover {
+    opacity: 0.9;
+  }
+  

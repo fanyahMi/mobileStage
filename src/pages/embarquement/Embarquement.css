@@ -1,0 +1,16 @@
+/* Exemple de style pour la carte */
+.navire-card {
+    margin-bottom: 15px;
+  }
+  
+  /* Style des titres dans les cartes */
+  .navire-card .ion-card-header {
+    background-color: var(--ion-color-light);
+  }
+  
+  /* Style pour le contenu de la carte */
+  .navire-card .ion-card-content {
+    font-size: 16px;
+    padding: 15px;
+  }
+  
