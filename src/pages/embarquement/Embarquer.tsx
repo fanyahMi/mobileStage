@@ -25,8 +25,7 @@ import { addCircleOutline, trashBinOutline, boat, time, person, arrowBack } from
 import "./Embarquement.css";
 import { fetchShiftEnCours, fetchStationsEncours, embarquer } from '../../services/apiService';
 
-// Liste des stations fictives
-const stations = ["Station 1", "Station 2", "Station 3", "Station 4"];
+
 
 const Embarquer: React.FC = () => {
   const { id, navire, numero } = useParams<{ id: string; navire: string; numero: string }>();
@@ -90,12 +89,11 @@ const Embarquer: React.FC = () => {
     // Calculer la somme des palettes
     const totalPalettes = stationPalettes.reduce((total, item) => total + item.palettes, 0);
   
-    // Vérifier si la somme des palettes est égale à 4
-    if (totalPalettes !== 4) {
-      // Si la somme des palettes n'est pas 4, afficher un message d'erreur
-      showErrorToast("Le nombre total de palettes doit être égal à 4 pour pouvoir enregistrer l'embarquement.");
+    if (totalPalettes < 1 || totalPalettes > 4) {
+      showErrorToast("Le nombre total de palettes doit être compris entre 1 et 4 pour pouvoir enregistrer l'embarquement.");
       return; // Empêche l'enregistrement
     }
+    
 
     const data = {
       numero_station_id: stationPalettes.map(item => item.station),  
@@ -158,7 +156,7 @@ const Embarquer: React.FC = () => {
             <IonItem>
               <IonIcon style={{ color: "var(--ion-color-primary)" }} icon={time} slot="start" />
               <IonLabel>Shift</IonLabel>
-              <IonLabel>{shift ? `${shift.description} (${shift.debut} - ${shift.fin})` : "Chargement..."}</IonLabel>
+              <IonLabel>{shift ? `${shift.description} ` : "Chargement..."}</IonLabel>
             </IonItem>
             <IonItem>
               <IonIcon style={{ color: "var(--ion-color-primary)" }} icon={person} slot="start" />

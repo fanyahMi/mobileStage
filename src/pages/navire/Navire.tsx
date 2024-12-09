@@ -67,9 +67,16 @@ const Navire: React.FC = () => {
                   Arrivée prévue : <strong>{new Date(navire.date_arriver).toLocaleDateString()}</strong>
                 </IonCardSubtitle>
                 <IonCardSubtitle>
-                <IonIcon icon={cube} style={{ marginRight: "8px", color: "var(--ion-color-primary)" }} />
-                  Quantité Max :  <strong>{navire.quantite_max} tonnes</strong>
+                  <IonIcon icon={cube} style={{ marginRight: "8px", color: "var(--ion-color-primary)" }} />
+                  Quantité Max :  <strong>{Number(navire.quantite_max || 0).toLocaleString('fr-FR')} tonnes</strong>
                 </IonCardSubtitle>
+
+                  <IonCardSubtitle>
+                    <IonIcon icon={cube} style={{ marginRight: "8px", color: "var(--ion-color-primary)" }} />
+                    Quantité Embarqué :  <strong>{Number(navire.quantite_embarque).toLocaleString('fr-FR')} tonnes</strong>
+                  </IonCardSubtitle>
+
+
               </IonCardHeader>
               <IonCardContent>
                 <Link to={`/embarquement/${navire.id_navire}/${navire.navire}`}>
@@ -82,16 +89,9 @@ const Navire: React.FC = () => {
                     Embarquement
                   </IonButton>
                 </Link>
-                <Link to={`/historique/${navire.id_navire}/${navire.navire}/${navire.nb_compartiment}`}>
-                  <IonButton 
-                    color="secondary" 
-                    expand="block" 
-                  >
-                    <IonIcon icon={folder} slot="start" />
-                    Historique d'Embarquement
-                  </IonButton>
-                </Link>
+                
               </IonCardContent>
+              
             </IonCard>
           ))
         )}

@@ -67,9 +67,6 @@ const Embarquement: React.FC = () => {
                 <p style={{ fontSize: '18px' }}>
                   <IonIcon icon={grid} style={{ marginRight: '8px' }} /> Quantité pallets : {compartiment.total_pallets}
                 </p>
-                <p style={{ fontSize: '18px' }}>
-                  <IonIcon icon={grid} style={{ marginRight: '8px' }} /> Quantité tonnes : {compartiment.total_quantite} {/* Utiliser des données appropriées pour la quantité restante */}
-                </p>
               </IonText>
 
               {/* Boutons centrés */}
