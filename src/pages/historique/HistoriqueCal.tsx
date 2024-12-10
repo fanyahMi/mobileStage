@@ -129,9 +129,6 @@ const HistoriqueCal: React.FC = () => {
                 <p style={{ fontSize: '18px' }}>
                   Quantité palettes : {historique.nombre_pallets}
                 </p>
-                <p style={{ fontSize: '18px' }}>
-                  Quantité Tonne: {historique.quantite}
-                </p>
               </IonText>
             </IonCardContent>
           </IonCard>

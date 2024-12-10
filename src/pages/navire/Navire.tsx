@@ -64,7 +64,7 @@ const Navire: React.FC = () => {
                 </IonCardSubtitle>
                 <IonCardSubtitle>
                   <IonIcon icon={calendar} style={{ marginRight: "8px", color: "var(--ion-color-tertiary)" }} />
-                  Arrivée prévue : <strong>{new Date(navire.date_arriver).toLocaleDateString()}</strong>
+                  Arrivée le : <strong>{new Date(navire.date_arriver).toLocaleDateString()}</strong>
                 </IonCardSubtitle>
                 <IonCardSubtitle>
                   <IonIcon icon={cube} style={{ marginRight: "8px", color: "var(--ion-color-primary)" }} />
