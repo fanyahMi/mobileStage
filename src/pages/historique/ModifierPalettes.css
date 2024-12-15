@@ -1,0 +1,22 @@
+.modifier-palettes-container {
+    padding: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .form-item {
+    margin-bottom: 20px;
+  }
+  
+  .update-button {
+    background-color: #3880ff;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .update-button:hover {
+    background-color: #3171e0;
+  }
+  

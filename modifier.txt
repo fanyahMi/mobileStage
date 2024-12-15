@@ -1,0 +1,116 @@
+import React, { useState, useEffect } from 'react';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonToast,
+} from '@ionic/react';
+import { useParams, useHistory } from 'react-router-dom';
+import { arrowBack } from 'ionicons/icons';
+import { updateNombrePalettes } from '../../../services/apiService';
+import './ModifierPalettes.css'; // Fichier CSS pour personnalisation
+
+const ModifierPalettes: React.FC = () => {
+  const history = useHistory();
+  const { idEmbarquement, nombrePalette, navire, idNavire, cale } = useParams<{
+    idEmbarquement: string;
+    nombrePalette: string;
+    navire:string;
+    idNavire:string;
+    cale:string;
+  }>();
+
+  const [nombrePalettes, setNombrePalettes] = useState<number | undefined>(undefined);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
+  useEffect(() => {
+    if (nombrePalette) {
+      setNombrePalettes(Number(nombrePalette));
+    }
+  }, [nombrePalette]);
+
+  const handleBackClick = () => {
+     window.location.href = (`/historiquecal/${idNavire}/${navire}/${cale}`); 
+  };
+
+  const handleUpdate = async () => {
+    if (nombrePalettes === undefined || isNaN(nombrePalettes)) {
+      setToastMessage('Veuillez entrer un nombre valide de palettes.');
+      setShowToast(true);
+      return;
+    }
+
+    try {
+      const response = await updateNombrePalettes(
+        Number(idEmbarquement),
+        nombrePalettes
+      );
+
+      if (response.status === 'success') {
+        setToastMessage('Le nombre de palettes a été modifié avec succès.');
+        setShowToast(true);
+        // Redirection possible après succès
+         window.location.href = (`/historiquecal/${idNavire}/${navire}/${cale}`); 
+      } else {
+        setToastMessage('Une erreur est survenue lors de la modification.');
+        setShowToast(true);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour des palettes :', error);
+      setToastMessage("Une erreur s'est produite.");
+      setShowToast(true);
+    }
+  };
+
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonButton fill="clear" slot="start" onClick={handleBackClick}>
+            <IonIcon icon={arrowBack} />
+          </IonButton>
+          <IonTitle>Modifier Palettes</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
+      <IonContent>
+        <div className="modifier-palettes-container">
+          <IonItem className="form-item">
+            <IonLabel position="stacked">Nombre de palettes</IonLabel>
+            <IonInput
+              type="number"
+              value={nombrePalettes}
+              placeholder="Entrez le nombre de palettes"
+              onIonChange={(e) =>
+                setNombrePalettes(
+                  e.detail.value ? Number(e.detail.value) : undefined
+                )
+              }
+            />
+          </IonItem>
+          <IonButton expand="block" onClick={handleUpdate} className="update-button">
+            Modifier
+          </IonButton>
+        </div>
+      </IonContent>
+
+      <IonToast
+        isOpen={showToast}
+        onDidDismiss={() => setShowToast(false)}
+        message={toastMessage}
+        duration={3000}
+        position="top"
+      />
+    </IonPage>
+  );
+};
+
+export default ModifierPalettes;

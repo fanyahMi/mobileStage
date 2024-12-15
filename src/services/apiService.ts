@@ -191,4 +191,34 @@ export const fetchCalesNavires = async (idNavire:number) => {
       console.error("Erreur lors de la récupération des historiques :", error);
       throw error;
     }
+    
+  };
+
+
+  export const updateNombrePalettes = async (idEmbarquement : number, nombrePalettes:number) => {
+    const token = sessionStorage.getItem('token');
+    
+    if (!token) {
+      throw new Error('Token manquant');
+    }
+    
+    try {
+      const data = {
+        nombre_pallets: nombrePalettes
+      };
+     const response = await axios.put(
+        `${API_URL}/v1/embarquement/${idEmbarquement}`, 
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      alert('Erreur lors de la mise à jour des palettes :');
+      throw error;
+    }
   };

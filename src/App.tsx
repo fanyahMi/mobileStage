@@ -9,6 +9,7 @@ import Embarquement from './pages/embarquement/Embarquement';
 import Embarquer from './pages/embarquement/Embarquer';
 import Historique from './pages/historique/Historique';
 import HistoriqueCal from './pages/historique/HistoriqueCal';
+import ModifierPalettes from './pages/embarquement/modifier/ModifierPalettes';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -61,6 +62,7 @@ const App: React.FC = () => {
             <Route path="/historique/:id/:navire/:cales" exact component={Historique} />
             <Route path="/historiquecal/:id/:navire/:numero" exact component={HistoriqueCal} />
             <Route path="/embarquer/:id/:navire/:numero" exact component={Embarquer} />
+            <Route path="/modifier-palettes/:idEmbarquement/:nombrePalette/:navire/:idNavire/:cale" component={ModifierPalettes} />
             <Route exact path="/">
               <Redirect to="/navire" />
             </Route>
